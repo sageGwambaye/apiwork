@@ -1,4 +1,3 @@
-# apiwork
 # APIWork - Student & Subject API
 
 ## Overview
