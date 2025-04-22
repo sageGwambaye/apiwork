@@ -103,7 +103,71 @@ git push -u origin main
 5. Configure **Nginx** or **Apache** as a reverse proxy for production.
 
 
+## Backup Schemes
+
+In this section, we explain three common backup schemes used in IT environments, including how each is executed, along with their advantages and disadvantages.
+
+ 1. FULL BACKUP
+ 2.  How it Works:
+A full backup is a complete copy of all data, files, or systems at a specific point in time. Every time a full backup runs, it creates a new copy of all the files regardless of whether they have changed or not.
+
+✅ Advantages:
+Easy to restore: Restoring is simple and fast since everything is in one backup set.
+
+Reliable: Since it includes everything, no file is left behind.
+
+❌ Disadvantages:
+Time-consuming: Takes a long time to complete, especially for large datasets.
+
+Storage-intensive: Requires more disk space than other methods.
+
+Ideal for periodic (e.g., weekly) backups combined with incremental or differential in between.
+
+
+🔄 2. INCREMENTAL BACKUP
+ How it Works:
+An incremental backup saves only the changes made since the last backup (either full or incremental). For example:
+
+Monday: Full Backup
+
+Tuesday: Incremental (changes since Monday)
+
+Wednesday: Incremental (changes since Tuesday), and so on...
+
+✅ Advantages:
+Efficient in storage and time: Saves space and time by only backing up what changed.
+
+Fast backup process: Especially good for daily or hourly backups.
+
+❌ Disadvantages:
+Slower to restore: Requires the last full backup and every incremental backup since then.
+
+Higher complexity: Dependency on all backup files to restore successfully.
+
+Ideal for systems where data changes frequently and backups must be taken regularly (e.g., every few hours).
+
+3. DIFFERENTIAL BACKUP
+ How it Works:
+A differential backup saves all the changes made since the last full backup. For example:
+
+Monday: Full Backup
+
+Tuesday: Differential (changes since Monday)
+
+Wednesday: Differential (changes since Monday), and so on…
+
+✅ Advantages:
+Faster restore than incremental: Only need the full backup + the latest differential.
+
+Middle ground: Balances time and storage efficiency.
+
+❌ Disadvantages:
+More storage over time: Each day’s differential backup grows larger until the next full backup.
+
+Slower backup than incremental: Because it accumulates more data.
+
+Useful when restore speed is important, but you also want to avoid daily full backups.
+
 
 ## Author
-Gehazi Wilbert Gwambaye - Software Engineering Student UDOM
-
+Gehazi Wilbert Gwambaye - Software Engineering Student
