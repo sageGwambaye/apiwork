@@ -1,0 +1,19 @@
+=== /var/log/server_health.log ===
+[2025-04-21 10:09:26] CPU: 6.7% | MEM: 46.26% | DISK: 30%
+[2025-04-21 10:09:26] WARNING: Apache2 is NOT running
+[2025-04-21 10:09:26] /students OK
+[2025-04-21 10:09:26] /subjects OK
+[2025-04-21 10:09:26] WARNING: Disk usage exceeds 10%
+
+--- /var/log/backup.log ---
+[ec2-user@ip-172-31-26-27 ~]$ sudo cat /var/log/backup.log
+[Mon Apr 21 10:07:08 UTC 2025] Backup successful
+
+--- /var/log/update.log ---
+[2025-04-21 10:12:27] Starting update...
+./update_server.sh: line 11: git: command not found
+[2025-04-21 10:12:27] ERROR: Git pull failed. Skipping server restart.
+
+[2025-04-21 10:23:21] Starting update...
+./update_server.sh: line 11: git: command not found
+[2025-04-21 10:23:21] ERROR: Git pull failed. Skipping server restart.
