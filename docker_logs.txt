@@ -1,0 +1,57 @@
+spring-api  | 
+spring-api  |   .   ____          _            __ _ _
+spring-api  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+spring-api  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+spring-api  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+spring-api  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+spring-api  |  =========|_|==============|___/=/_/_/_/
+spring-api  | 
+spring-api  |  :: Spring Boot ::                (v3.4.4)
+spring-api  | 
+spring-api  | 2025-04-26T08:32:46.798Z  INFO 1 --- [apiwork] [           main] com.example.apiwork.ApiworkApplication   : Starting ApiworkApplication v0.0.1-SNAPSHOT using Java 21.0.7 with PID 1 (/app/app.jar started by root in /app)
+spring-api  | 2025-04-26T08:32:46.804Z  INFO 1 --- [apiwork] [           main] com.example.apiwork.ApiworkApplication   : No active profile set, falling back to 1 default profile: "default"
+spring-api  | 2025-04-26T08:32:49.078Z  INFO 1 --- [apiwork] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+spring-api  | 2025-04-26T08:32:49.280Z  INFO 1 --- [apiwork] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 171 ms. Found 2 JPA repository interfaces.
+spring-api  | 2025-04-26T08:32:50.672Z  INFO 1 --- [apiwork] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+spring-api  | 2025-04-26T08:32:50.712Z  INFO 1 --- [apiwork] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+spring-api  | 2025-04-26T08:32:50.713Z  INFO 1 --- [apiwork] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.39]
+spring-api  | 2025-04-26T08:32:50.807Z  INFO 1 --- [apiwork] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+spring-api  | 2025-04-26T08:32:50.814Z  INFO 1 --- [apiwork] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3816 ms
+spring-api  | 2025-04-26T08:32:51.238Z  INFO 1 --- [apiwork] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+spring-api  | 2025-04-26T08:32:51.377Z  INFO 1 --- [apiwork] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.11.Final
+spring-api  | 2025-04-26T08:32:51.475Z  INFO 1 --- [apiwork] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+spring-api  | 2025-04-26T08:32:52.119Z  INFO 1 --- [apiwork] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+spring-api  | 2025-04-26T08:32:52.227Z  INFO 1 --- [apiwork] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+spring-api  | 2025-04-26T08:32:53.471Z  INFO 1 --- [apiwork] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@602298b
+spring-api  | 2025-04-26T08:32:53.476Z  INFO 1 --- [apiwork] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+spring-api  | 2025-04-26T08:32:53.647Z  WARN 1 --- [apiwork] [           main] org.hibernate.orm.deprecation            : HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+spring-api  | 2025-04-26T08:32:53.653Z  WARN 1 --- [apiwork] [           main] org.hibernate.orm.deprecation            : HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+spring-api  | 2025-04-26T08:32:53.725Z  INFO 1 --- [apiwork] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+spring-api  | 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+spring-api  | 	Database driver: undefined/unknown
+spring-api  | 	Database version: 8.0
+spring-api  | 	Autocommit mode: undefined/unknown
+spring-api  | 	Isolation level: undefined/unknown
+spring-api  | 	Minimum pool size: undefined/unknown
+spring-api  | 	Maximum pool size: undefined/unknown
+spring-api  | 2025-04-26T08:32:55.833Z  INFO 1 --- [apiwork] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+spring-api  | 2025-04-26T08:32:56.066Z  INFO 1 --- [apiwork] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+spring-api  | 2025-04-26T08:32:56.777Z  WARN 1 --- [apiwork] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+spring-api  | 2025-04-26T08:32:57.662Z  INFO 1 --- [apiwork] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+spring-api  | 2025-04-26T08:32:57.743Z  INFO 1 --- [apiwork] [           main] com.example.apiwork.ApiworkApplication   : Started ApiworkApplication in 12.473 seconds (process running for 14.281)
+spring-api  | 2025-04-26T08:43:55.936Z  INFO 1 --- [apiwork] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+spring-api  | 2025-04-26T08:43:55.937Z  INFO 1 --- [apiwork] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+spring-api  | 2025-04-26T08:43:55.941Z  INFO 1 --- [apiwork] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+mysql-db    | 2025-04-26 08:32:42+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+mysql-db    | 2025-04-26 08:32:43+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+mysql-db    | 2025-04-26 08:32:43+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.42-1.el9 started.
+mysql-db    | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+mysql-db    | 2025-04-26T08:32:44.153285Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+mysql-db    | 2025-04-26T08:32:44.157944Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.42) starting as process 1
+mysql-db    | 2025-04-26T08:32:44.184164Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+mysql-db    | 2025-04-26T08:32:46.496806Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+mysql-db    | 2025-04-26T08:32:47.790846Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+mysql-db    | 2025-04-26T08:32:47.791564Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+mysql-db    | 2025-04-26T08:32:47.808725Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+mysql-db    | 2025-04-26T08:32:47.974867Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+mysql-db    | 2025-04-26T08:32:47.976599Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.42'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
