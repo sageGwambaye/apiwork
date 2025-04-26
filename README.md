@@ -195,6 +195,88 @@ A differential backup saves all the changes made since the last full backup.
 
 ---
 
+
+**Spring Boot API + MySQL Deployment with Docker Compose on AWS**
+
+##  Building Docker Images
+
+1. **Clone the repository:**
+```bash
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+```
+
+2. **Build the Spring Boot Docker Image:**
+```bash
+docker build -t spring-api .
+```
+
+> (Make sure your `Dockerfile` is correct.)
+
+## 🐳 Deploy and Manage Containers (Docker Compose)
+
+1. **Start the multi-container environment:**
+```bash
+docker-compose up --build
+```
+
+2. **Stop the containers:**
+```bash
+docker-compose down
+```
+
+3. **Access the Application:**
+```
+http://<your-ec2-public-ip>:8080/
+```
+
+## Troubleshooting Tips
+
+| Problem | Solution |
+|:---|:---|
+| Port 3306 already in use | Stop local MySQL service or change container port |
+| Permission Denied (SSH or SCP) | Make sure `.pem` file path is correct and permissions are `chmod 400 your-key.pem` |
+| Application not reachable | Check AWS EC2 Security Group rules (allow port 8080) |
+
+---
+
+# 3. **Upload Docker Image to Docker Hub**
+
+You must push your **Spring Boot app Docker image** to Docker Hub.
+
+###  Steps:
+
+1. **Login to Docker Hub inside EC2:**
+```bash
+docker login
+```
+(Enter your Docker Hub username and password.)
+
+2. **Tag your local image:**
+```bash
+docker tag spring-api your-dockerhub-username/spring-api
+```
+
+Example:
+```bash
+docker tag ec2-user-spring-api sagegwambaye/apiwork-spring-api
+```
+
+3. **Push the image:**
+```bash
+docker push sagegwambaye/apiwork-spring-api
+```
+
+
+
+> ```
+> Docker Hub Image: https://hub.docker.com/r/sagegwambaye/apiwork-spring-api
+> ```
+
+---
+
+
+
 ## Author
 **Gehazi Wilbert Gwambaye** - Software Engineering Student
 
