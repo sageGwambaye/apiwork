@@ -1,38 +1,57 @@
+Here’s an updated version of your README with instructions for the **frontend** (React application) and **load balancer** setup:
+
+---
+
 # APIWork - Student & Subject API
 
 ## Overview
+
 APIWork is a RESTful API built using **Spring Boot** and **MySQL**. It provides endpoints to fetch student details and subjects offered in the **Software Engineering** program from Year 1 to Year 4.
 
 ## Features
-- Retrieve a list of students and their enrolled programs.
-- Retrieve a structured list of subjects categorized by academic year.
-- Uses **Spring Boot**, **Spring Data JPA**, and **MySQL** as the database.
+
+* Retrieve a list of students and their enrolled programs.
+* Retrieve a structured list of subjects categorized by academic year.
+* Uses **Spring Boot**, **Spring Data JPA**, and **MySQL** as the database.
 
 ## Technologies Used
-- **Spring Boot** (Backend Framework)
-- **Spring Data JPA** (Database Interaction)
-- **MySQL** (Database)
-- **Postman** (API Testing)
-- **AWS** (Deployment)
-- **GitHub** (Version Control)
+
+* **Spring Boot** (Backend Framework)
+* **Spring Data JPA** (Database Interaction)
+* **MySQL** (Database)
+* **React** (Frontend Framework)
+* **Postman** (API Testing)
+* **AWS** (Deployment)
+* **Docker** (Containerization)
+* **Nginx** or **HAProxy** (Load Balancer)
+* **GitHub** (Version Control)
+
+---
 
 ## Setup Instructions
 
 ### Prerequisites
+
 Ensure you have the following installed on your system:
-- Java 17 or later
-- MySQL Database
-- Maven
-- Git
+
+* Java 17 or later
+* MySQL Database
+* Maven
+* Node.js and npm (for React)
+* Git
+* Docker & Docker Compose (for containerization)
 
 ### Clone the Repository
+
 ```sh
 git clone https://github.com/yourusername/apiwork.git
 cd apiwork
 ```
 
 ### Configure Database
+
 Update **`application.properties`** (located in `src/main/resources/`):
+
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/apiwork
 spring.datasource.username=root
@@ -41,18 +60,48 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
 
-### Build and Run the Application
+---
+
+### Backend - Build and Run the Application
+
 ```sh
 mvn clean install
 mvn spring-boot:run
 ```
 
+### Frontend - React Application
+
+1. **Navigate to the frontend directory** (Assuming you have a separate React project inside the repository):
+
+```sh
+cd frontend
+```
+
+2. **Install dependencies**:
+
+```sh
+npm install
+```
+
+3. **Build and run the React app**:
+
+```sh
+npm start
+```
+
+This will start the frontend application on `http://localhost:3000`.
+
+---
+
 ## API Endpoints
 
 ### 1. Get All Students
+
 **Endpoint:** `GET /students`
-- **Description:** Returns a list of students and their enrolled programs.
-- **Response Example:**
+
+* **Description:** Returns a list of students and their enrolled programs.
+* **Response Example:**
+
 ```json
 [
   { "name": "Juma Hassan", "program": "Software Engineering" },
@@ -61,9 +110,12 @@ mvn spring-boot:run
 ```
 
 ### 2. Get Subjects by Year
+
 **Endpoint:** `GET /subjects`
-- **Description:** Returns subjects categorized by academic year.
-- **Response Example:**
+
+* **Description:** Returns subjects categorized by academic year.
+* **Response Example:**
+
 ```json
 {
   "Year 1": ["Introduction to Programming", "Mathematics for Computing"],
@@ -73,13 +125,20 @@ mvn spring-boot:run
 }
 ```
 
+---
+
 ## Testing with Postman
+
 1. Open **Postman**.
 2. Use `GET http://localhost:8080/students` to fetch student data.
 3. Use `GET http://localhost:8080/subjects` to fetch subjects.
 
+---
+
 ## Version Control with Git
+
 ### Initialize Repository
+
 ```sh
 git init
 git add .
@@ -89,14 +148,19 @@ git remote add origin https://github.com/yourusername/apiwork.git
 git push -u origin main
 ```
 
+---
+
 ## Deployment to AWS
+
 1. Launch an **AWS EC2 Ubuntu instance**.
 2. Install Java & MySQL on the server.
 3. Transfer your JAR file using SCP:
+
    ```sh
    scp target/apiwork-0.0.1-SNAPSHOT.jar ubuntu@your-aws-ip:/home/ubuntu/
    ```
 4. Run the application:
+
    ```sh
    java -jar apiwork-0.0.1-SNAPSHOT.jar
    ```
@@ -104,41 +168,168 @@ git push -u origin main
 
 ---
 
+## Frontend Deployment
+
+1. **Build the React app for production**:
+
+```sh
+npm run build
+```
+
+This will create a `build/` folder in your React project directory with optimized static files.
+
+2. **Transfer the build files to your EC2 instance**:
+
+```sh
+scp -r build/ ubuntu@your-aws-ip:/home/ubuntu/frontend
+```
+
+3. **Set up Nginx to serve the frontend**:
+
+Install Nginx on the server:
+
+```sh
+sudo apt update
+sudo apt install nginx
+```
+
+4. **Configure Nginx** to serve the React build files:
+
+```sh
+sudo nano /etc/nginx/sites-available/default
+```
+
+Replace the existing configuration with:
+
+```nginx
+server {
+    listen 80;
+    server_name your-ec2-public-ip;
+
+    root /home/ubuntu/frontend/build;
+    index index.html;
+
+    location / {
+        try_files $uri /index.html;
+    }
+}
+```
+
+5. **Restart Nginx**:
+
+```sh
+sudo systemctl restart nginx
+```
+
+Now, your React frontend will be accessible at `http://<your-ec2-public-ip>`.
+
+---
+
+## Load Balancer Setup
+
+To distribute traffic efficiently, we can set up a **load balancer** with **Nginx** or **HAProxy**.
+
+### Using Nginx as a Load Balancer
+
+1. **Install Nginx** on a server:
+
+```sh
+sudo apt update
+sudo apt install nginx
+```
+
+2. **Configure Nginx** as a load balancer:
+
+```sh
+sudo nano /etc/nginx/sites-available/load-balancer
+```
+
+Example configuration:
+
+```nginx
+http {
+    upstream backend_servers {
+        server backend-server1:8080;
+        server backend-server2:8080;
+        server backend-server3:8080;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://backend_servers;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
+```
+
+3. **Enable the Load Balancer Configuration**:
+
+```sh
+sudo ln -s /etc/nginx/sites-available/load-balancer /etc/nginx/sites-enabled/
+```
+
+4. **Restart Nginx**:
+
+```sh
+sudo systemctl restart nginx
+```
+
+This configuration will distribute incoming traffic to the three backend servers (Spring Boot applications).
+
+
 ## Bash Scripts Overview
+
 The system includes a set of automation Bash scripts to help with server and API maintenance.
 
-### health_check.sh
-- **Purpose:** Performs a server health check (CPU, memory, disk usage) and logs results.
-- **Dependencies:** `top`, `df`, `free`, `uptime`, and `curl`
+### health\_check.sh
 
-### backup_api.sh
-- **Purpose:** Backs up the API project folder and the MySQL database.
-- **Dependencies:** `tar`, `mysqldump`
+* **Purpose:** Performs a server health check (CPU, memory, disk usage) and logs results.
+* **Dependencies:** `top`, `df`, `free`, `uptime`, and `curl`
 
-### update_server.sh
-- **Purpose:** Updates the Linux system packages and pulls new changes for the API from Git.
-- **Dependencies:** `apt`, `git`
+### backup\_api.sh
+
+* **Purpose:** Backs up the API project folder and the MySQL database.
+* **Dependencies:** `tar`, `mysqldump`
+
+### update\_server.sh
+
+* **Purpose:** Updates the Linux system packages and pulls new changes for the API from Git.
+* **Dependencies:** `apt`, `git`
 
 ### Setup & Execution
+
 1. Give execution permission to each script:
+
 ```sh
 chmod +x health_check.sh backup_api.sh update_server.sh
 ```
 
 2. Run a script manually (example):
+
 ```sh
 ./health_check.sh
 ```
+
 If permission is denied, run it with sudo:
+
 ```sh
 sudo ./health_check.sh
 ```
 
 3. Setup automatic execution with crontab:
+
 ```sh
 crontab -e
 ```
+
 Then add:
+
 ```
 0 */6 * * * /home/ubuntu/bash_scripts/health_check.sh
 0 2 * * * /home/ubuntu/bash_scripts/backup_api.sh
@@ -149,134 +340,32 @@ Then add:
 
 ## Backup Schemes
 
-In this section, we explain three common backup schemes used in IT environments, including how each is executed, along with their advantages and disadvantages.
-
 ### 1. FULL BACKUP
-**How it Works:**
-A full backup is a complete copy of all data, files, or systems at a specific point in time. Every time a full backup runs, it creates a new copy of all the files regardless of whether they have changed or not.
 
-✅ **Advantages:**
-- Easy to restore: Restoring is simple and fast since everything is in one backup set.
-- Reliable: Since it includes everything, no file is left behind.
-
-❌ **Disadvantages:**
-- Time-consuming: Takes a long time to complete, especially for large datasets.
-- Storage-intensive: Requires more disk space than other methods.
-
-💡 *Ideal for periodic (e.g., weekly) backups combined with incremental or differential in between.*
+* **How it Works:** A complete copy of all data at a specific point in time.
+* **Advantages:** Easy to restore.
+* **Disadvantages:** Time-consuming, storage-intensive.
 
 ### 2. INCREMENTAL BACKUP
-**How it Works:**
-An incremental backup saves only the changes made since the last backup (either full or incremental).
 
-✅ **Advantages:**
-- Efficient in storage and time: Saves space and time by only backing up what changed.
-- Fast backup process: Especially good for daily or hourly backups.
-
-❌ **Disadvantages:**
-- Slower to restore: Requires the last full backup and every incremental backup since then.
-- Higher complexity: Dependency on all backup files to restore successfully.
-
-💡 *Ideal for systems where data changes frequently and backups must be taken regularly (e.g., every few hours).*
+* **How it Works:** Saves only the changes since the last backup.
+* **Advantages:** Efficient in storage and time.
+* **Disadvantages:** Slower to restore.
 
 ### 3. DIFFERENTIAL BACKUP
-**How it Works:**
-A differential backup saves all the changes made since the last full backup.
 
-✅ **Advantages:**
-- Faster restore than incremental: Only need the full backup + the latest differential.
-- Middle ground: Balances time and storage efficiency.
-
-❌ **Disadvantages:**
-- More storage over time: Each day’s differential backup grows larger until the next full backup.
-- Slower backup than incremental: Because it accumulates more data.
-
-💡 *Useful when restore speed is important, but you also want to avoid daily full backups.*
+* **How it Works:** Saves all changes since the last full backup.
+* **Advantages:** Faster restore than incremental.
+* **Disadvantages:** More storage usage over time.
 
 ---
-
 
 **Spring Boot API + MySQL Deployment with Docker Compose on AWS**
 
-##  Building Docker Images
-
-1. **Clone the repository:**
-```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
-```
-
-2. **Build the Spring Boot Docker Image:**
-```bash
-docker build -t spring-api .
-```
-
-> (Make sure your `Dockerfile` is correct.)
-
-## 🐳 Deploy and Manage Containers (Docker Compose)
-
-1. **Start the multi-container environment:**
-```bash
-docker-compose up --build
-```
-
-2. **Stop the containers:**
-```bash
-docker-compose down
-```
-
-3. **Access the Application:**
-```
-http://<your-ec2-public-ip>:8080/
-```
-
-## Troubleshooting Tips
-
-| Problem | Solution |
-|:---|:---|
-| Port 3306 already in use | Stop local MySQL service or change container port |
-| Permission Denied (SSH or SCP) | Make sure `.pem` file path is correct and permissions are `chmod 400 your-key.pem` |
-| Application not reachable | Check AWS EC2 Security Group rules (allow port 8080) |
-
 ---
-
-# 3. **Upload Docker Image to Docker Hub**
-
-You must push your **Spring Boot app Docker image** to Docker Hub.
-
-###  Steps:
-
-1. **Login to Docker Hub inside EC2:**
-```bash
-docker login
-```
-(Enter your Docker Hub username and password.)
-
-2. **Tag your local image:**
-```bash
-docker tag spring-api your-dockerhub-username/spring-api
-```
-
-Example:
-```bash
-docker tag ec2-user-spring-api sagegwambaye/apiwork-spring-api
-```
-
-3. **Push the image:**
-```bash
-docker push sagegwambaye/apiwork-spring-api
-```
-
-
-
-> ```
-> Docker Hub Image: https://hub.docker.com/r/sagegwambaye/apiwork-spring-api
-> ```
-
----
-
-
 
 ## Author
+
 **Gehazi Wilbert Gwambaye** - Software Engineering Student
 
+---
