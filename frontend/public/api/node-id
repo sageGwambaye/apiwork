@@ -1,0 +1,8 @@
+
+// This is a mock API response file
+// In a real containerized setup, this would be handled by your server
+// and the X-Node-ID header would be set by the actual responding node
+
+{
+  "nodeId": "frontend1"
+}
